@@ -1,36 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script src="aframe.min.js"></script>
   <script src="mindar-face-aframe.prod.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-  <script>eruda.init();</script>
-</head>
-<body>
-  <a-scene mindar-face embedded color-space="sRGB"
-           vr-mode-ui="enabled: false"
-           device-orientation-permission-ui="enabled: false">
 
-    <a-camera active="false" position="0 0 0"></a-camera>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    a-scene {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <a-scene
+    mindar-face
+    embedded
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+  >
+
+    <a-camera active="false"></a-camera>
 
     <a-entity mindar-face-target="anchorIndex: 168">
-      <a-gltf-model src="mask.glb"
-                    scale="0.2 0.2 0.2"
-                    position="-0.3 0.15 0"
-                    rotation="0 0 0">
-      </a-gltf-model>
+      <a-gltf-model
+        src="mask.glb"
+        scale="0.2 0.2 0.2"
+        position="-0.3 0.15 0"
+      ></a-gltf-model>
     </a-entity>
 
-
     <a-entity mindar-face-target="anchorIndex: 10">
-      <a-gltf-model src="hat.glb"
-                    scale="0.012 0.012 0.012"
-                    position="0 0.15 -1"
-                    rotation="0 0 0">
-      </a-gltf-model>
+      <a-gltf-model
+        src="hat.glb"
+        scale="0.012 0.012 0.012"
+        position="0 0.15 -1"
+      ></a-gltf-model>
     </a-entity>
 
   </a-scene>
+
+  <script>
+    const scene = document.querySelector('a-scene');
+
+    scene.addEventListener('loaded', () => {
+      scene.systems['mindar-face-system'].start();
+    });
+  </script>
+
 </body>
 </html>
